@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Bookstore API Test Suite">
+    <test name="Cucumber TestNG">
+        <classes>
+            <class name="book.store.api.v1.runners.TestRunner"/>
+        </classes>
+    </test>
+</suite>
