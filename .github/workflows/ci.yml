@@ -4,9 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       tags:
-        description: 'Tags to Run (e.g., @Books, @authors)'
+        description: 'Tags to Run (e.g., @Books, @Authors)'
         required: false
         default: '@AllAPIs'
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   test:
