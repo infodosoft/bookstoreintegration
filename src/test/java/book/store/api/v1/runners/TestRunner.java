@@ -7,7 +7,7 @@ import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
         features = "classpath:features",
-        glue = "book.store.api.v1.steps",
+        glue = {"book.store.api.v1.steps", "book.store.api.v1.hooks"},
         tags = "@AllAPIs",
         plugin={"pretty",
                 "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",

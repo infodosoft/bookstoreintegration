@@ -5,4 +5,7 @@
             <class name="book.store.api.v1.runners.TestRunner"/>
         </classes>
     </test>
+    <listeners>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg" />
+    </listeners>
 </suite>
