@@ -118,7 +118,7 @@ CI workflow runs on every push to `main`.
 If Pages is enabled in your repo:
 
 ```
-https://github.com/infodosoft/bookstoreintegration
+https://infodosoft.github.io/bookstoreintegration/
 ```
 
 Ensure:
