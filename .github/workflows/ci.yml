@@ -7,6 +7,10 @@ on:
         description: 'Tags to Run (e.g., @Books, @Authors)'
         required: false
         default: '@AllAPIs'
+      env:
+        description: 'Test environment'
+        required: false
+        default: 'QA'
   push:
     branches: [ main ]
   pull_request:
@@ -38,7 +42,7 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Run Tests by Tags
-        run: mvn clean test -Dcucumber.filter.tags="${{ github.event.inputs.tags }}"
+        run: mvn clean test -Dcucumber.filter.tags="${{ github.event.inputs.tags }}" -Denv="${{ github.event.inputs.env }}"
 
       - name: Install Allure CLI
         run: |

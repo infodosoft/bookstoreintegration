@@ -17,4 +17,7 @@ public class ApiConfig {
     public static String get(String key) {
         return properties.getProperty(key);
     }
+    public static String getEnv() {
+        return get("env");
+    }
 }
