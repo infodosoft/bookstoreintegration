@@ -62,7 +62,7 @@ jobs:
           mkdir -p $ALLURE_RESULTS_DIR
 
           echo "Environment=${{ github.event.inputs.env }}" >> $ALLURE_RESULTS_DIR/environment.properties
-          echo "Browser=Chrome 115" >> $ALLURE_RESULTS_DIR/environment.properties
+          echo "ENV=${{ github.event.inputs.env }}" >> $ALLURE_RESULTS_DIR/environment.properties
           echo "OS=Ubuntu" >> $ALLURE_RESULTS_DIR/environment.properties
 
           cat <<EOF > $ALLURE_RESULTS_DIR/executor.json
