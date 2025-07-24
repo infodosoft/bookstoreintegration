@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import static book.store.api.v1.BaseApi.getSharedApiTestData;
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.testng.Assert.*;

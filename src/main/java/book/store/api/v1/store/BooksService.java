@@ -14,13 +14,14 @@ public class BooksService extends AuthorsService {
     private static final String booksUrl = ApiConfig.get("endpoint.books");
     @Getter
     private static String bookUrl = ApiConfig.get("endpoint.book");
+
     public Response userRetrievesAListOfInStore(String type) {
         String endpoint = null;
         switch (type.toLowerCase()){
             case "books" -> endpoint = booksUrl;
             case "authors" -> endpoint = getAuthorsUrl();
         }
-        return sendGetRequest(endpoint, null);
+        return sendGetRequest(endpoint);
     }
     public Response userRetrievesADetailsInStore(String type, List<Map<String, Object>> responseBodyList) {
          String currentId = "";
@@ -30,26 +31,23 @@ public class BooksService extends AuthorsService {
         switch (type.toLowerCase()){
             case "books" ->{
                 if (responseBodyList == null) {
-                    response = sendGetRequest(booksUrl, null);
+                    response = sendGetRequest(booksUrl);
                     responseBodyList = jsonToObject.listObject(response.body().asString());
-                    currentId = String.valueOf(((Number) responseBodyList.getFirst().get("id")).intValue());
-                } else {
-                    currentId = String.valueOf(((Number)responseBodyList.getFirst().get("id")).intValue());
                 }
-                endpoint = bookUrl;
+              currentId = String.valueOf(((Number) responseBodyList.getFirst().get("id")).intValue());
+              endpoint = bookUrl;
             }
             case "authors" ->{
                 if (responseBodyList == null) {
-                    response = sendGetRequest(getAuthorsUrl(), null);
+                    response = sendGetRequest(getAuthorsUrl());
                     responseBodyList = jsonToObject.listObject(response.body().asString());
-                    currentId = String.valueOf(((Number) responseBodyList.getFirst().get("id")).intValue());
-                } else {
-                    currentId = String.valueOf(((Number)responseBodyList.getFirst().get("id")).intValue());
                 }
-                endpoint = getAuthorUrl();
+              currentId = String.valueOf(((Number) responseBodyList.getFirst().get("id")).intValue());
+              endpoint = getAuthorUrl();
             }
         }
-        return sendGetRequest(endpoint.replace("{id}", currentId),null );
+        assert endpoint != null;
+        return sendGetRequest(endpoint.replace("{id}", currentId));
     }
     public Response userAddsANewInTheStore(String type) {
         switch (type.toLowerCase()){
@@ -70,24 +68,20 @@ public class BooksService extends AuthorsService {
         switch (type.toLowerCase()){
             case "books" -> {
                 if (responseBodyList == null) {
-                    response = sendGetRequest(booksUrl, null);
+                    response = sendGetRequest(booksUrl);
                     responseBodyList = jsonToObject.listObject(response.body().asString());
-                    currentId = String.valueOf(((Number) responseBodyList.getFirst().get("id")).intValue());
-                } else {
-                    currentId = String.valueOf(((Number)responseBodyList.getFirst().get("id")).intValue());
                 }
-                endpoint = bookUrl;
+              currentId = String.valueOf(((Number) responseBodyList.getFirst().get("id")).intValue());
+              endpoint = bookUrl;
                 payload = PayloadBuilder.updatedBookPayload(Integer.valueOf(currentId));
             }
             case "authors" -> {
                 if (responseBodyList == null) {
-                    response = sendGetRequest(getAuthorsUrl(), null);
+                    response = sendGetRequest(getAuthorsUrl());
                     responseBodyList = jsonToObject.listObject(response.body().asString());
-                    currentId = String.valueOf(((Number) responseBodyList.getFirst().get("id")).intValue());
-                } else {
-                    currentId = String.valueOf(((Number)responseBodyList.getFirst().get("id")).intValue());
                 }
-                endpoint = getAuthorUrl();
+              currentId = String.valueOf(((Number) responseBodyList.getFirst().get("id")).intValue());
+              endpoint = getAuthorUrl();
                 payload = PayloadBuilder.updatedAuthorPayload(Integer.valueOf(currentId));
             }
 
@@ -103,27 +97,23 @@ public class BooksService extends AuthorsService {
         switch (type.toLowerCase()){
             case "books" -> {
                 if (responseBodyList == null) {
-                    response = sendGetRequest(booksUrl, null);
+                    response = sendGetRequest(booksUrl);
                     responseBodyList = jsonToObject.listObject(response.body().asString());
-                    currentId = String.valueOf(((Number) responseBodyList.getFirst().get("id")).intValue());
-                } else {
-                    currentId = String.valueOf(((Number)responseBodyList.getFirst().get("id")).intValue());
                 }
-                endpoint = bookUrl;
+              currentId = String.valueOf(((Number) responseBodyList.getFirst().get("id")).intValue());
+              endpoint = bookUrl;
             }
             case "authors" -> {
                 if (responseBodyList == null) {
-                    response = sendGetRequest(getAuthorsUrl(), null);
+                    response = sendGetRequest(getAuthorsUrl());
                     responseBodyList = jsonToObject.listObject(response.body().asString());
-                    currentId = String.valueOf(((Number) responseBodyList.getFirst().get("id")).intValue());
-                } else {
-                    currentId = String.valueOf(((Number)responseBodyList.getFirst().get("id")).intValue());
                 }
-                endpoint = getAuthorUrl();
+              currentId = String.valueOf(((Number) responseBodyList.getFirst().get("id")).intValue());
+              endpoint = getAuthorUrl();
             }
         }
         assert endpoint != null;
-        return sendDeleteRequest(endpoint.replace("{id}", currentId),null);
+        return sendDeleteRequest(endpoint.replace("{id}", currentId));
     }
     public Response userAddsANewInTheStoreUsingInvalidPayload(String type, String payload) {
         switch (type.toLowerCase()){
@@ -139,10 +129,10 @@ public class BooksService extends AuthorsService {
     public Response userRetrievesADetailsInStoreUsingInvalidId(String type, String id) {
         switch (type.toLowerCase()){
             case "books" -> {
-                return sendGetRequest(bookUrl.replace("{id}", id),null );
+                return sendGetRequest(bookUrl.replace("{id}", id));
             }
             case "authors" -> {
-                return sendGetRequest(getAuthorUrl().replace("{id}", id),null );
+                return sendGetRequest(getAuthorUrl().replace("{id}", id));
             }
         }
         return null;
@@ -150,13 +140,12 @@ public class BooksService extends AuthorsService {
     public Response userDeletesAnExistingInTheStoreUsingInvalidId(String type, String id) {
         switch (type.toLowerCase()){
             case "books" -> {
-                return sendDeleteRequest(bookUrl.replace("{id}", id),null);
+                return sendDeleteRequest(bookUrl.replace("{id}", id));
             }
             case "authors" -> {
-                return sendDeleteRequest(getAuthorUrl().replace("{id}", id),null);
+                return sendDeleteRequest(getAuthorUrl().replace("{id}", id));
             }
         }
-
         return  null;
     }
 }

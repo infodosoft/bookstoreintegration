@@ -28,7 +28,7 @@ public class BaseApi {
         io.restassured.RestAssured.baseURI = ApiConfig.get("base.uri");
     }
     public Response the_api_is_running() {
-         return sendGetRequest("/",null);
+         return sendGetRequest("/");
     }
     protected  Map<String, String> commonHeader(){
         Map<String, String> headers = new HashMap<>();
@@ -76,8 +76,8 @@ public class BaseApi {
         return response;
     }
 
-    protected Response sendGetRequest(String endpoint, Object payload) {
-        return sendRequest("GET", endpoint,payload);
+    protected Response sendGetRequest(String endpoint) {
+        return sendRequest("GET", endpoint, null);
     }
     protected Response sendPostRequest(String endpoint, Object payload) {
         return sendRequest("POST", endpoint, payload);
@@ -85,8 +85,8 @@ public class BaseApi {
     protected Response sendPutRequest(String endpoint, Object payload) {
         return sendRequest("PUT", endpoint,  payload);
     }
-    protected Response sendDeleteRequest(String endpoint,  Object payload) {
-        return sendRequest("DELETE", endpoint, payload);
+    protected Response sendDeleteRequest(String endpoint) {
+        return sendRequest("DELETE", endpoint, null);
     }
 
 

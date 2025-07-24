@@ -1,8 +1,5 @@
 package book.store.api.v1.utils;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.github.javafaker.Faker;
 import org.json.JSONObject;
 

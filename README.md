@@ -93,7 +93,7 @@ allure generate target/allure-results --clean -o target/allure-report
 You can run specific `testng.xml` files:
 
 ```bash
-mvn clean test -DsuiteXmlFile=src/test/resources/suites/testng.xml
+mvn clean test -DsuiteXmlFile=testng.xml
 ```
 
 Or define them via Maven profiles (`smoke`, `regression`).
@@ -109,7 +109,7 @@ CI workflow runs on every push to `main`.
 - Deploys Allure HTML report to GitHub Pages
 - Uploads report artifact for download
 
-📂 Workflow file: `.github/workflows/allure.yml`
+📂 Workflow file: `.github/workflows/ci.yml`
 
 ---
 
@@ -143,7 +143,7 @@ Ensure:
 
 ## 👨‍💻 Author & Credits
 
-- **Author:** *Your Name*
+- **Author:** *Clement Mukendi*
 - **Date:** July 2025
 - **Purpose:** API Test Automation for Bookstore (Assessment Project)
 

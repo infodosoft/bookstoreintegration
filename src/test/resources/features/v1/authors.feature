@@ -54,7 +54,6 @@ Feature: Author API Test
   @edge
   Scenario Outline: Create Author with missing fields
     When User adds a new <type> in the store using invalid <invalidPayload> payload
-    #When I send a POST request to "/api/v1/Authors" with an invalid book payload
     Then the response status code should be <responseStatusCode> from the service
     And the response should contain the <type> created
     Examples:
