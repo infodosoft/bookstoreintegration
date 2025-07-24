@@ -6,14 +6,11 @@ import org.testng.annotations.DataProvider;
 
 
 @CucumberOptions(
+        plugin={"pretty", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"},
         features = "classpath:features",
-        glue = {"book.store.api.v1.steps", "book.store.api.v1.hooks"},
-        tags = "@AllAPIs",
-        plugin={"pretty",
-                "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
-                "html:report/reports.html",
-                "json:report/cucumber.json"
-        }
+        glue = "book.store.api.v1.steps",
+        tags = "@AllAPIs"
+
 )
 
 public class TestRunner extends AbstractTestNGCucumberTests {
