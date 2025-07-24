@@ -59,7 +59,7 @@ public class PayloadBuilder {
     }
     public static JSONObject updatedAuthorPayload(Integer id) {
         JSONObject author = newAuthorPayload();
-        String authorFirstName ="Updated " + faker.name().firstName();
+        String authorFirstName ="Updated ".concat(faker.name().firstName());
         getSharedApiTestData().put("authors",authorFirstName);
         author.put("id", id);
         author.put("firstName", authorFirstName);
