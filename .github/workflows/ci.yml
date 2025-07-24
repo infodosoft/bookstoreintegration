@@ -41,6 +41,56 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
+      # Restore Allure History from Previous Build
+      - name: Download Allure History Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: allure-history
+          path: previous-history
+        continue-on-error: true
+
+      - name: Prepare Allure History Folder
+        run: |
+          mkdir -p $ALLURE_RESULTS_DIR/history
+          if [ -d "previous-history/history" ]; then
+            cp -r previous-history/history/* $ALLURE_RESULTS_DIR/history/ || true
+          fi
+
+      # Generate Allure Metadata Files (environment.properties, executor.json, categories.json)
+      - name: Generate Allure Metadata Files
+        run: |
+          mkdir -p $ALLURE_RESULTS_DIR
+
+          echo "Environment=${{ github.event.inputs.env }}" >> $ALLURE_RESULTS_DIR/environment.properties
+          echo "Browser=Chrome 115" >> $ALLURE_RESULTS_DIR/environment.properties
+          echo "OS=Ubuntu" >> $ALLURE_RESULTS_DIR/environment.properties
+
+          cat <<EOF > $ALLURE_RESULTS_DIR/executor.json
+          {
+            "name": "GitHub Actions",
+            "type": "github",
+            "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+            "buildOrder": ${{ github.run_number }},
+            "buildName": "#${{ github.run_number }}",
+            "buildUrl": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          }
+          EOF
+
+          cat <<EOF > $ALLURE_RESULTS_DIR/categories.json
+          [
+            {
+              "name": "Product Defects",
+              "matchedStatuses": ["failed"],
+              "messageRegex": ".*AssertionError.*"
+            },
+            {
+              "name": "Flaky Tests",
+              "matchedStatuses": ["broken"],
+              "traceRegex": ".*TimeoutException.*"
+            }
+          ]
+          EOF
+
       - name: Run Tests by Tags
         run: mvn clean test -Dcucumber.filter.tags="${{ github.event.inputs.tags }}" -Denv="${{ github.event.inputs.env }}"
 
@@ -55,12 +105,21 @@ jobs:
         run: |
           allure generate $ALLURE_RESULTS_DIR --clean -o $ALLURE_REPORT_DIR
 
+      # Upload Allure Report as Artifact
       - name: Upload Allure Report Artifact
         uses: actions/upload-artifact@v4
         with:
           name: allure-report
           path: ${{ env.ALLURE_REPORT_DIR }}
 
+      # Upload Allure History for Next Build Trend
+      - name: Upload Allure History Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-history
+          path: ${{ env.ALLURE_REPORT_DIR }}/history
+
+      # Deploy Allure Report to GitHub Pages (on main branch)
       - name: Deploy Allure Report to GitHub Pages
         if: github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
