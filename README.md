@@ -19,21 +19,21 @@ Automated API testing framework for the [Fake REST API Bookstore](https://fakere
 
 ## 🛠️ Technology Stack
 
-| Layer        | Tech Used                          |
-|--------------|------------------------------------|
-| Language     | Java 21                            |
-| Build Tool   | Maven                              |
-| Frameworks   | RestAssured, Cucumber, TestNG      |
-| Reporting    | Allure, ExtentReports              |
-| CI/CD        | GitHub Actions                     |
-| Utilities    | JavaFaker, Log4j2                  |
+| Layer        | Tech Used                     |
+|--------------|-------------------------------|
+| Language     | Java 21                       |
+| Build Tool   | Maven                         |
+| Frameworks   | RestAssured, Cucumber, TestNG |
+| Reporting    | Allure                        |
+| CI/CD        | GitHub Actions                |
+| Utilities    | JavaFaker, Log4j2             |
 
 ---
 
 ## 📂 Folder Structure
 
 ```
-bookstore-api-tests/
+bookstoreintegration/
 │
 ├── src/
 │   ├── main/java/book/store/api/v1/
@@ -49,7 +49,7 @@ bookstore-api-tests/
 │   ├── config.properties    # Base URI and environment
 │   └── log4j2.xml           # Logging configuration
 │
-├── target/                  # Output: reports, logs, etc.
+├── target/                  # Output: logs, etc.
 ├── testng.xml               # Entry suite file
 ├── pom.xml                  # Maven dependencies & config
 └── .github/workflows/       # GitHub Actions CI + Allure deploy
@@ -79,13 +79,13 @@ mvn clean test
 #### Allure Report
 
 ```bash
-allure serve target/allure-results
+allure serve allure-results
 ```
 
 Or generate static HTML:
 
 ```bash
-allure generate target/allure-results --clean -o target/allure-report
+allure generate allure-results --clean -o allure-report
 ```
 
 ## 🧪 Running Specific Suites
