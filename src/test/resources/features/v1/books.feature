@@ -1,4 +1,4 @@
-@AllAPIs @books
+@AllAPIs @Books
 Feature: Book API Test
 
   Background:
