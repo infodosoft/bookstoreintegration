@@ -19,4 +19,8 @@ public class Hooks {
                     new ByteArrayInputStream(CommonSteps.latestResponse.asByteArray()), ".json");
         }
     }
+    @AfterAll
+    public void afterAll(){
+        System.out.println(ApiConfig.getEnv());
+    }
 }
